@@ -55,6 +55,7 @@ public:
         std::string playername = target->GetName();
         uint16 playerGUID = target->GetGUID().GetCounter();
         uint8 currentState = target->GetPlayerSetting("mod-individual-progression", SETTING_PROGRESSION_STATE).value;
+		uint32 currentArea = target->GetAreaId();
 		
 		if (progressionLevel < currentState)
         {
@@ -117,13 +118,14 @@ public:
 
         sIndividualProgression->ForceUpdateProgressionState(target, static_cast<ProgressionState>(progressionLevel));
         sIndividualProgression->UpdateProgressionQuests(target);
+        sIndividualProgression->checkIPPhasing(target, currentArea);
 
         handler->PSendSysMessage("Updated Progression Level for |cff00ffff{}|r = |cff00ffff{}|r", playername, progressionLevel);
         return true;
     }
 
     static bool HandleTeleIndividualProgressionCommand(ChatHandler* handler, Optional<PlayerIdentifier> player, std::string location)
-    {	 
+    {
         if (location != "naxx40" && location != "onyxia40" && location != "naxx" && location != "onyxia")
         {
             handler->PSendSysMessage("|cff00ffff{}|r is not a valid teleport location.", location);
