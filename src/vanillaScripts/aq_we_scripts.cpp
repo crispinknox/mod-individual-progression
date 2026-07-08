@@ -12,19 +12,13 @@ public:
         explicit gobject_ipp_leather_stage_0AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
-            {
-                return true;
-            }
 
-            return false;
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
+                return true;
+            else
+                return false;
         }
     };
 
@@ -44,14 +38,10 @@ public:
         explicit gobject_ipp_leather_stage_1AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
+
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
             {
                 uint8 leatherQuests = 0;
 
@@ -64,7 +54,7 @@ public:
                 {
                     leatherQuests = 1;
                 }
-				
+
                 if (leatherQuests == 1)
                     return true;
             }
@@ -90,19 +80,13 @@ public:
         explicit gobject_ipp_herbs_stage_0AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
-            {
-                return true;
-            }
 
-            return false;
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
+                return true;
+            else
+                return false;
         }
     };
 
@@ -122,14 +106,10 @@ public:
         explicit gobject_ipp_herbs_stage_1AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
+
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
             {
                 uint8 herbQuests = 0;
 
@@ -167,19 +147,13 @@ public:
         explicit gobject_ipp_bars_stage_0AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
-            {
-                return true;
-            }
 
-            return false;
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
+                return true;
+            else
+                return false;
         }
     };
 
@@ -199,14 +173,10 @@ public:
         explicit gobject_ipp_bars_stage_1AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
+
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
             {
                 uint8 barQuests = 0;
 
@@ -244,19 +214,13 @@ public:
         explicit gobject_ipp_food_stage_0AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
-            {
-                return true;
-            }
 
-            return false;
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
+                return true;
+            else
+                return false;
         }
     };
 
@@ -276,14 +240,10 @@ public:
         explicit gobject_ipp_food_stage_1AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
+
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
             {
                 uint8 foodQuests = 0;
 
@@ -321,19 +281,13 @@ public:
         explicit gobject_ipp_bandages_stage_0AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
-            {
-                return true;
-            }
 
-            return false;
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
+                return true;
+            else
+                return false;
         }
     };
 
@@ -353,14 +307,10 @@ public:
         explicit gobject_ipp_bandages_stage_1AI(GameObject* object) : GameObjectAI(object) { };
 
         bool CanBeSeen(Player const* player) override
-        {           
+        {
             Player* target = ObjectAccessor::FindConnectedPlayer(player->GetGUID());
-            
-            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
-            {
-                return false;
-            }
-            else if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR))
+
+            if (sIndividualProgression->hasPassedProgression(target, PROGRESSION_BLACKWING_LAIR) && !sIndividualProgression->hasPassedProgression(target, PROGRESSION_PRE_AQ))
             {
                 uint8 bandagesQuests = 0;
 

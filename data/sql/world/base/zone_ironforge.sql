@@ -10,32 +10,6 @@ UPDATE `creature_template` SET `subname` = 'Journeyman Enchanter'     WHERE `ent
 UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (1246, 1466, 1703, 10276, 10277, 11028, 11029, 11065); -- `trainer_type` = 2
 UPDATE `creature_template` SET `type_flags` = 134217728 WHERE `entry` IN (5157, 10276, 11029);
 
-SET @TRAINER_ID   := 600;
-
-DELETE FROM `creature_default_trainer` WHERE `CreatureId` IN (1246, 1466, 1703, 5150, 10276, 10277, 11028, 11029, 11065);
-INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
-(1246,  @TRAINER_ID+11), -- Vosur Brakthel <Journeyman Alchemist>
-(1466,  @TRAINER_ID+31), -- Gretta Finespindle <Journeyman Leatherworker>
-(1703,  @TRAINER_ID+36), -- Uthrar Threx <Journeyman Tailor>
-(5150,  @TRAINER_ID+45), -- Nissa Firestone <First Aid Trainer> 
-(10277, @TRAINER_ID+16), -- Groum Stonebeard <Journeyman Blacksmith>
-(10276, @TRAINER_ID+17), -- Rotgath Stonebeard <Expert Blacksmith>
-(11028, @TRAINER_ID+26), -- Jemma Quikswitch <Journeyman Engineer>
-(11029, @TRAINER_ID+27), -- Trixie Quikswitch <Expert Engineer>
-(11065, @TRAINER_ID+21); -- Thonys Pillarstone <Journeyman Enchanter>
-
-DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (2742, 2761, 4116, 4137, 4147, 4154, 4160, 4182, 4264);
-INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionText`, `OptionBroadcastTextID`, `OptionType`, `OptionNpcFlag`) VALUES 
-(2742, 0, 3, 'Train me.', 3266, 5, 16), -- Groum Stonebeard <Journeyman Blacksmith>
-(2761, 0, 3, 'Train me.', 3266, 5, 16), -- Rotgath Stonebeard <Expert Blacksmith>
-(4116, 0, 3, 'Train me.', 3266, 5, 16), -- Vosur Brakthel <Journeyman Alchemist>
-(4137, 0, 3, 'Train me.', 3266, 5, 16), -- Jemma Quikswitch <Journeyman Engineer>
-(4147, 0, 3, 'Train me.', 3266, 5, 16), -- Trixie Quikswitch <Expert Engineer>
-(4154, 0, 3, 'Train me.', 3266, 5, 16), -- Thonys Pillarstone <Journeyman Enchanter>
-(4160, 0, 3, 'Train me.', 3266, 5, 16), -- Gimble Thistlefuzz <Expert Enchanter>
-(4182, 0, 3, 'Train me.', 3266, 5, 16), -- Gretta Finespindle <Journeyman Leatherworker>
-(4264, 0, 3, 'Train me.', 3266, 5, 16); -- Uthrar Threx <Journeyman Tailor>
-
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 15 AND `SourceEntry` = 0 AND `ConditionTypeOrReference` = 7 AND `SourceGroup` IN (593, 2761, 4123, 4147, 4150, 4160, 4205, 4345);
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `ConditionTypeOrReference`, `ConditionValue1`, `ConditionValue2`, `Comment`) VALUES
 (15, 593,  0, 7, 164, 125, 'Show menu if blacksmithing is 125 or higher'), -- Bengus Deepforge <Artisan Blacksmith>
@@ -48,8 +22,8 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4345, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');      -- Jormund Stonebrow <Expert Tailor>
 
 -- battlemasters
-DELETE FROM `creature` WHERE `id1` IN (857, 5113, 5115, 6114, 12197, 14982, 19915, 34991, 35007, 35025, 35600) OR `guid` = 86263;
-INSERT INTO `creature` (`guid`, `id1`, `map`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `curhealth`, `curmana`) VALUES 
+DELETE FROM `creature` WHERE `id` IN (857, 5113, 5115, 6114, 12197, 14982, 19915, 34991, 35007, 35025, 35600) OR `guid` = 86263;
+INSERT INTO `creature` (`guid`, `id`, `map`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`, `curhealth`, `curmana`) VALUES 
 (600857, 857,   0, 1, -5039.19, -1266.88, 510.326, 3.92579,  120, 1, 0), -- Donal Osgood <Arathi Basin Battlemaster>
 (2019,   5113,  0, 1, -5047.54, -1269.69, 510.408, 6.24828,  540, 1, 0), -- Kelv Sternhammer <Warrior Trainer>
 (2020,   5115,  0, 1, -5043.84, -1274.68, 510.324, 1.33007,  490, 1, 0), -- Daera Brightspear <Hunter Trainer>
@@ -62,5 +36,3 @@ INSERT INTO `creature` (`guid`, `id1`, `map`, `equipment_id`, `position_x`, `pos
 (88249,  35007, 0, 1, -5040.18, -1263.17, 510.325, 4.46067,  120, 1, 1), -- Lixa Felflinger <Battlemaster>
 (208055, 35025, 0, 1, -5036.95, -1264.96, 510.325, 3.85973,  120, 1, 0), -- Lynette Bracer <Isle of Conquest Battlemaster>
 (88248,  35600, 0, 1, -5035.64, -1267.93, 510.324, 3.29044,  300, 1, 1); -- Arcanist Laniria <Wintergrasp Battle-Mage>
-
-UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_wotlk' WHERE `entry` IN (15351, 34991, 35007, 35025, 35600);

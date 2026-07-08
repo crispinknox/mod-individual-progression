@@ -64,14 +64,14 @@ INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Lan
 (79, 0, 2, 'No kill me! No kill me!', 12, 0, 100, 0, 0, 0, 1863, 0, 'Narg the Taskmaster');
 
 -- Hogger, fix missing waypoints and spawn points, entry 448, guid 80531
-DELETE FROM `creature` WHERE `id1` = 448;
-INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
+DELETE FROM `creature` WHERE `id` = 448;
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
 `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES
-(80531, 448, 0, 0, 0, 0, 0, 1, 1, 1, -9946, 604.266, 38.2862, 0.297245, 180, 0, 1, 666, 0, 2, 0, 0, 0, '', 0, 0, NULL),
-(695022, 448, 0, 0, 0, 0, 0, 1, 1, 1, -9947.88, 594.773, 39.608, 5.19393, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
-(695023, 448, 0, 0, 0, 0, 0, 1, 1, 1, -10107.2, 618.213, 38.2045, 3.78528, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
-(695024, 448, 0, 0, 0, 0, 0, 1, 1, 1, -10085.4, 585.657, 39.2759, 1.30395, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
-(695025, 448, 0, 0, 0, 0, 0, 1, 1, 1, -10018.6, 640.629, 39.0636, 1.3324, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL);
+(80531, 448, 0, 0, 0, 1, 1, 1, -9946, 604.266, 38.2862, 0.297245, 180, 0, 1, 666, 0, 2, 0, 0, 0, '', 0, 0, NULL),
+(695022, 448, 0, 0, 0, 1, 1, 1, -9947.88, 594.773, 39.608, 5.19393, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
+(695023, 448, 0, 0, 0, 1, 1, 1, -10107.2, 618.213, 38.2045, 3.78528, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
+(695024, 448, 0, 0, 0, 1, 1, 1, -10085.4, 585.657, 39.2759, 1.30395, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL),
+(695025, 448, 0, 0, 0, 1, 1, 1, -10018.6, 640.629, 39.0636, 1.3324, 180, 15, 0, 666, 0, 1, 0, 0, 0, '', 0, 0, NULL);
 
 DELETE FROM `creature_addon` WHERE `guid` = 80531;
 INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `visibilityDistanceType`, `auras`) VALUES 
@@ -144,27 +144,6 @@ UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (5500, 5567);
 
 DELETE FROM `creature_template_addon` WHERE `entry` = 69;  -- Diseased Timber Wolf
 DELETE FROM `creature_template_addon` WHERE `entry` = 299; -- Diseased Young Wolf
-
-SET @TRAINER_ID   := 600;
-
-DELETE FROM `creature_default_trainer` WHERE `CreatureId` IN (514, 1103, 1215, 1632, 1651, 2329, 4732, 5500, 5567, 11072);
-INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
-(514,   @TRAINER_ID+16), -- Smith Argus <Journeyman Blacksmith>
-(1103,  @TRAINER_ID+36), -- Eldrin <Journeyman Tailor>
-(1215,  @TRAINER_ID+11), -- Alchemist Mallory <Journeyman Alchemist>
-(1632,  @TRAINER_ID+31), -- Adele Fielder <Journeyman Leatherworker>
-(1651,  @TRAINER_ID+47), -- Lee Brown <Fisherman>
-(2329,  @TRAINER_ID+45), -- Michelle Belle <Physician>
-(4732,  @TRAINER_ID+48), -- Randal Hunter <Riding Trainer>
-(5500,  @TRAINER_ID+11), -- Tel'Athir <Journeyman Alchemist>
-(5567,  @TRAINER_ID+37), -- Sellandus <Expert Tailor>
-(11072, @TRAINER_ID+23); -- Kitta Firewind <Enchanting Trainer>
-
-DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (4110, 4112, 4169);
-INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionText`, `OptionBroadcastTextID`, `OptionType`, `OptionNpcFlag`) VALUES
-(4110, 0, 3, 'Train me.', 3266, 5, 16), -- Alchemist Mallory <Journeyman Alchemist>
-(4112, 0, 3, 'Train me.', 3266, 5, 16), -- Tel'Athir <Journeyman Alchemist>
-(4169, 0, 3, 'Train me.', 3266, 5, 16); -- Kitta Firewind <Enchanting Trainer>
 
 -- Wolves Across the Border
 DELETE FROM `quest_offer_reward` WHERE `ID` = 33;
@@ -244,22 +223,22 @@ INSERT INTO `creature_questitem` (`CreatureEntry`, `Idx`, `ItemId`, `VerifiedBui
 (299, 0, 750, 0);
 
 -- Restore Mirror Lake Orchard creatures removed in WotLK
-DELETE FROM `creature` WHERE `guid` IN (80391, 80392, 80393, 80394, 80396, 80397, 80399, 80400, 80401, 80402, 80403, 80404, 80405) AND `id1` IN (116, 94);
-INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
+DELETE FROM `creature` WHERE `guid` IN (80391, 80392, 80393, 80394, 80396, 80397, 80399, 80400, 80401, 80402, 80403, 80404, 80405) AND `id` IN (116, 94);
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
 `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`) VALUES
-(80391, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9441.48, 469.81, 53.2758, 4.26422, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80392, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9444.94, 473.775, 52.3257, 4.03171, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80393, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9437.72, 486.039, 53.3307, 5.58505, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80394, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9433.15, 482.528, 53.2474, 2.53073, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80396, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9464.65, 480.308, 53.0385, 3.48143, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
-(80397, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9453.23, 512.811, 56.3243, 6.18203, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
-(80399, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9447.86, 462.158, 52.2864, 4.2586, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80400, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9495.64, 457.065, 52.3032, 2.96413, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
-(80401, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9479.78, 470.421, 51.6672, 5.18983, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
-(80402, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9459.9, 426.179, 52.6221, 3.6223, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
-(80403, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9441.33, 447.532, 52.5032, 3.9619, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80404, 116, 0, 0, 0, 0, 0, 1, 1, 1, -9445.96, 451.56, 52.6251, 1.93731, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
-(80405, 94, 0, 0, 0, 0, 0, 1, 1, 1, -9517.96, 494.378, 52.2181, 5.29769, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0);
+(80391, 116, 0, 0, 0, 1, 1, 1, -9441.48, 469.81, 53.2758, 4.26422, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80392, 116, 0, 0, 0, 1, 1, 1, -9444.94, 473.775, 52.3257, 4.03171, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80393, 116, 0, 0, 0, 1, 1, 1, -9437.72, 486.039, 53.3307, 5.58505, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80394, 116, 0, 0, 0, 1, 1, 1, -9433.15, 482.528, 53.2474, 2.53073, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80396, 94, 0, 0, 0, 1, 1, 1, -9464.65, 480.308, 53.0385, 3.48143, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
+(80397, 94, 0, 0, 0, 1, 1, 1, -9453.23, 512.811, 56.3243, 6.18203, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
+(80399, 116, 0, 0, 0, 1, 1, 1, -9447.86, 462.158, 52.2864, 4.2586, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80400, 94, 0, 0, 0, 1, 1, 1, -9495.64, 457.065, 52.3032, 2.96413, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
+(80401, 94, 0, 0, 0, 1, 1, 1, -9479.78, 470.421, 51.6672, 5.18983, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
+(80402, 94, 0, 0, 0, 1, 1, 1, -9459.9, 426.179, 52.6221, 3.6223, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0),
+(80403, 116, 0, 0, 0, 1, 1, 1, -9441.33, 447.532, 52.5032, 3.9619, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80404, 116, 0, 0, 0, 1, 1, 1, -9445.96, 451.56, 52.6251, 1.93731, 180, 5, 0, 156, 0, 1, 0, 0, 0, '', 0),
+(80405, 94, 0, 0, 0, 1, 1, 1, -9517.96, 494.378, 52.2181, 5.29769, 180, 5, 0, 102, 0, 1, 0, 0, 0, '', 0);
 
 -- fix Defias Thug worldserver errors
 UPDATE `creature` SET `MovementType` = 0  WHERE `guid` = 80149;

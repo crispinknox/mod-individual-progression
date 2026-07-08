@@ -18,43 +18,6 @@ UPDATE `creature_template` SET `subname` = 'Journeyman Enchanter'     WHERE `ent
 UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (1383, 2855, 2857, 3412, 5811, 10266, 11017, 11046, 11066); -- `trainer_type` = 2
 UPDATE `creature_template` SET `type_flags` = 134217728 WHERE `entry` IN (1383, 3412, 11017);
 
-SET @TRAINER_ID   := 600;
-
-DELETE FROM `creature_default_trainer` WHERE `CreatureId` IN (1383, 2855, 2857, 3332, 3345, 3347, 3355, 3357, 3363, 3365, 3373, 3399, 3412, 4752, 5811, 7088, 10266, 11017, 11046, 11066);
-INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
-(1383,  @TRAINER_ID+17), -- Snarl <Expert Blacksmith>
-(2855,  @TRAINER_ID+36), -- Snang <Journeyman Tailor>
-(2857,  @TRAINER_ID+26), -- Thund <Journeyman Engineer>
-(3332,  @TRAINER_ID+47), -- Lumak <Fishing Trainer>
-(3345,  @TRAINER_ID+22), -- Godan <Expert Enchanter>
-(3347,  @TRAINER_ID+12), -- Yelmak <Expert Alchemist>
-(3355,  @TRAINER_ID+18), -- Saru Steelfury <Artisan Blacksmith>
-(3357,  @TRAINER_ID+42), -- Makaru <Mining Trainer>
-(3363,  @TRAINER_ID+37), -- Magar <Expert Tailor>
-(3365,  @TRAINER_ID+32), -- Karolek <Expert Leatherworker>
-(3373,  @TRAINER_ID+45), -- Arnok <First Aid Trainer>
-(3399,  @TRAINER_ID+44), -- Zamja <Cooking Trainer>
-(3412,  @TRAINER_ID+27), -- Nogg <Expert Engineer>
-(4752,  @TRAINER_ID+48), -- Kildar <Riding Trainer>
-(5811,  @TRAINER_ID+31), -- Kamari <Journeyman Leatherworker>
-(7088,  @TRAINER_ID+43), -- Thuwd <Skinning Trainer>
-(10266, @TRAINER_ID+16), -- Ug'thok <Journeyman Blacksmith>
-(11017, @TRAINER_ID+28), -- Roxxik <Artisan Engineer>
-(11046, @TRAINER_ID+11), -- Whuut <Journeyman Alchemist>
-(11066, @TRAINER_ID+21); -- Jhag <Journeyman Enchanter>
-
-DELETE FROM `gossip_menu_option` WHERE `MenuID` IN (2747, 2782, 4118, 4143, 4148, 4151, 4159, 4183, 4265);
-INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionText`, `OptionBroadcastTextID`, `OptionType`, `OptionNpcFlag`) VALUES
-(2747, 0, 3, 'Train me.', 3266, 5, 16), -- Ug'thok <Journeyman Blacksmith>
-(2782, 0, 3, 'Train me.', 3266, 5, 16), -- Snarl <Expert Blacksmith>
-(4118, 0, 3, 'Train me.', 3266, 5, 16), -- Whuut <Journeyman Alchemist>
-(4143, 0, 3, 'Train me.', 3266, 5, 16), -- Thund <Journeyman Engineer>
-(4148, 0, 3, 'Train me.', 3266, 5, 16), -- Nogg <Expert Engineer>
-(4151, 0, 3, 'Train me.', 3266, 5, 16), -- Roxxik <Artisan Engineer>
-(4159, 0, 3, 'Train me.', 3266, 5, 16), -- Jhag <Journeyman Enchanter>
-(4183, 0, 3, 'Train me.', 3266, 5, 16), -- Kamari <Journeyman Leatherworker>
-(4265, 0, 3, 'Train me.', 3266, 5, 16); -- Snang <Journeyman Tailor>
-
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 15 AND `SourceEntry` = 0 AND `ConditionTypeOrReference` = 7 AND `SourceGroup` IN (1012, 2782, 4126, 4148, 4151, 4168, 4209, 4347);
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `ConditionTypeOrReference`, `ConditionValue1`, `ConditionValue2`, `Comment`) VALUES
 (15, 1012, 0, 7, 164, 125, 'Show menu if blacksmithing is 125 or higher'), -- Saru Steelfury <Artisan Blacksmith>
@@ -66,24 +29,19 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4209, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'), -- Karolek <Expert Leatherworker>
 (15, 4347, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');      -- Magar <Expert Tailor>
 
-DELETE FROM `creature` WHERE `id1` = 3230 AND `map`= 1;
+DELETE FROM `creature` WHERE `id` = 3230 AND `map`= 1;
 DELETE FROM `creature` WHERE `guid` IN (10299, 203492, 203493, 203494, 203495);
-DELETE FROM `creature` WHERE `id1` IN (3890, 12788, 14720, 14942, 15006);
-INSERT INTO `creature` (`guid`, `id1`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES 
-(603230, 3230,  1, 1938.55, -4133.22, 41.1424, 4.07636, 300), -- Nazgrel <Advisor to Thrall>
-(10299,  3296,  1, 1620.45, -4252.84, 47.5273, 3.7001,  300), -- Orgrimmar Grunt
-(603890, 3890,  1, 1991.89, -4793.95, 56.0462, 3.27581, 300), -- Brakgul Deathbringer <Warsong Gulch Battlemaster>
-(612788, 12788, 1, 1650.95, -4212.82, 55.439, 0.182965, 300), -- Legionnaire Teena
-(614720, 14720, 1, 1565.79, -4395.27, 6.9866, 3.35103,  600), -- High Overlord Saurfang
-(614942, 14942, 1, 1980.9, -4787.78, 55.8796, 5.13127,  600), -- Kartra Bloodsnarl <Alterac Valley Battlemaster>
-(615006, 15006, 1, 2002.26, -4796.74, 56.8471, 3.00197, 600); -- Deze Snowbane <Arathis Basin Battlemaster>
-
--- hide wotlk battlemasters
-UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_wotlk' WHERE `entry` IN (34955, 35008, 35017, 35602);
-UPDATE `creature_template` SET `flags_extra` = 2, `ScriptName` = 'npc_ipp_pre_wotlk' WHERE `entry` IN (14942);
+DELETE FROM `creature` WHERE `id` IN (3890, 14720, 14942, 15006);
+INSERT INTO `creature` (`guid`, `id`, `map`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES 
+(603230, 3230,  1, 1, 1938.55, -4133.22, 41.1424, 4.07636, 300), -- Nazgrel <Advisor to Thrall>
+(10299,  3296,  1, 1, 1620.45, -4252.84, 47.5273, 3.7001,  300), -- Orgrimmar Grunt
+(603890, 3890,  1, 1, 1991.89, -4793.95, 56.0462, 3.27581, 300), -- Brakgul Deathbringer <Warsong Gulch Battlemaster>
+(614720, 14720, 1, 1, 1565.79, -4395.27, 6.9866, 3.35103,  600), -- High Overlord Saurfang
+(614942, 14942, 1, 1, 1980.9, -4787.78, 55.8796, 5.13127,  600), -- Kartra Bloodsnarl <Alterac Valley Battlemaster>
+(615006, 15006, 1, 1, 2002.26, -4796.74, 56.8471, 3.00197, 600); -- Deze Snowbane <Arathis Basin Battlemaster>
 
 -- Master Pyreanor <Paladin Trainer>
-UPDATE `creature` SET `position_x`= 1940.23, `position_y`= -4135.53, `position_z`= 41.1522, `orientation`= 3.12425  WHERE `id1` = 23128;
+UPDATE `creature` SET `position_x`= 1940.23, `position_y`= -4135.53, `position_z`= 41.1522, `orientation`= 3.12425  WHERE `id` = 23128;
 
 -- Knowledge of the Orb of Orahil (Warlock)
 DELETE FROM `creature_queststarter` WHERE `id` = 3326 AND `quest` = 4967;
@@ -114,7 +72,8 @@ UPDATE `creature_template_locale` SET `Title` = NULL WHERE `entry` = 12788;
 DELETE FROM `npc_vendor` WHERE `entry`= 12788; -- was placed in battlegrounds during Vanilla and TBC. needs to be hidden until wotlk
 
 -- Nazgrel <Advisor to Thrall>
-UPDATE `creature_template` SET `scale`=0.7, `npcflag`=2, `faction`=29, `gossip_menu_id`=0 WHERE `entry`=3230;
+UPDATE `creature_template` SET `npcflag` = 2, `faction` = 29, `gossip_menu_id` = 0 WHERE `entry` = 3230;
+UPDATE `creature_template_model` SET `DisplayScale` = 0.7 WHERE `CreatureID` = 3230;
 
 -- remove civilian flag
 UPDATE `creature_template` SET `flags_extra` = 0 WHERE `entry` IN (14392, 14720); -- Overlord Runthak / High Overlord Saurfang
@@ -137,54 +96,57 @@ UPDATE `creature_template` SET `subname` = 'Arena Vendor'                      W
 
 UPDATE `creature_template_addon` SET `mount` = 0 WHERE `entry` = 12796;
 
-DELETE FROM `creature` WHERE `guid` IN (125688, 125690, 125694, 125695, 612792, 612793, 612794, 612795, 612796, 612799, 614581, 623396, 623447, 626397);
-DELETE FROM `creature` WHERE `id1`  IN (32383, 32385, 34036, 34037, 34038, 34058, 34059, 34060);
-DELETE FROM `creature` WHERE `guid` IN (620278, 626396); -- 00_cleanup
+DELETE FROM `creature` WHERE `guid` IN (125688, 125690, 125694, 125695, 612792, 612793, 612794, 612795, 612796, 612799, 614581, 623396, 623447, 626397, 620278, 626396); -- 00_cleanup
+DELETE FROM `creature` WHERE `id`  IN (12788, 19850, 32383, 32385, 34036, 34037, 34038, 34058, 34059, 34060);
 DELETE FROM `creature` WHERE `guid` BETWEEN @CGUID+1 AND @CGUID+18;
+DELETE FROM `creature` WHERE `guid` BETWEEN @CGUID+101 AND @CGUID+118;
 
-INSERT INTO `creature` (`guid`, `id1`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES 
+INSERT INTO `creature` (`guid`, `id`, `map`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES 
 --
-(612799, 12799, 1, 1632.21, -4262.19, 49.027, 3.63029, 430),        -- Sergeant Ba'sha <Accessories Quartermaster>, Vanilla
-(612792, 12792, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),        -- Lady Palanseer <Armor Quartermaster>, Vanilla
-(626397, 26397, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),        -- Lady Palanseer <Armor Quartermaster>, TBC
-(612793, @Stonehide, 1, 1657.6, -4191.97, 56.383, 4.52365, 180),    -- Brave Stonehide <Officer Accessories Quartermaster>, Vanilla
-(125690, 12793, 1, 1672.24, -4206.81, 56.3827, 3.30568, 180),       -- Brave Stonehide <Officer Accessories Quartermaster>, TBC
-(612794, @Zarg, 1, 1641.65, -4197.52, 56.3823, 5.41219, 180),       -- Stone Guard Zarg <Food and Drink>, Vanilla
-(125688, 12794, 1, 1641.65, -4197.52, 56.3823, 5.41219, 180),       -- Stone Guard Zarg <Weapons Quartermaster>, TBC
-(612795, @Hola, 1, 1673.9, -4216, 56.3826, 2.93578, 180),           -- First Sergeant Hola'mahi <Reagent Vendor>, Vanilla
-(125695, 12795, 1, 1673.9, -4216, 56.3826, 2.93578, 180),           -- First Sergeant Hola'mahi <Armor Quartermaster>, TBC
-(614581, 14581, 1, 1644.52, -4195.26, 56.3826, 5.43078, 180),       -- Sergeant Thunderhorn <Weapons Quartermaster>, Vanilla
-(626396, 26396, 1, 1669.09, -4196.78, 56.4831, 4.10416, 180),       -- Sergeant Thunderhorn <Weapons Quartermaster>, TBC
+(@CGUID+101, 12799, 1, 1, 1632.21, -4262.19, 49.027, 3.63029, 430),     -- Sergeant Ba'sha <Accessories Quartermaster>, Vanilla
+(@CGUID+102, @Stonehide, 1, 1, 1657.6, -4191.97, 56.383, 4.52365, 180), -- Brave Stonehide <Officer Accessories Quartermaster>, Vanilla
+(@CGUID+103, 12793, 1, 1, 1672.24, -4206.81, 56.3827, 3.30568, 180),    -- Brave Stonehide <Officer Accessories Quartermaster>, TBC
+(@CGUID+104, @Zarg, 1, 1, 1641.65, -4197.52, 56.3823, 5.41219, 180),    -- Stone Guard Zarg <Food and Drink>, Vanilla
+(@CGUID+105, 12794, 1, 1, 1641.65, -4197.52, 56.3823, 5.41219, 180),    -- Stone Guard Zarg <Weapons Quartermaster>, TBC
+(@CGUID+106, @Hola, 1, 1, 1673.9, -4216, 56.3826, 2.93578, 180),        -- First Sergeant Hola'mahi <Reagent Vendor>, Vanilla
+(@CGUID+107, 12795, 1, 1, 1673.9, -4216, 56.3826, 2.93578, 180),        -- First Sergeant Hola'mahi <Armor Quartermaster>, TBC
+(@CGUID+108, 14581, 1, 1, 1644.52, -4195.26, 56.3826, 5.43078, 180),    -- Sergeant Thunderhorn <Weapons Quartermaster>, Vanilla
+(@CGUID+109, 26396, 1, 1, 1669.09, -4196.78, 56.4831, 4.10416, 180),    -- Sergeant Thunderhorn <Weapons Quartermaster>, TBC
+(@CGUID+110, 12792, 1, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),     -- Lady Palanseer <Armor Quartermaster>, Vanilla
+(@CGUID+111, 26397, 1, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),     -- Lady Palanseer <Armor Quartermaster>, TBC Season 1
+(@CGUID+112, 23447, 1, 0, 1644.52, -4195.26, 56.3826, 5.43078, 180),    -- Sergeant Kien <Armor Quartermaster>,  TBC Season 2
+(@CGUID+113, 34039, 1, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),     -- Lady Palanseer <Armor Quartermaster>, TBC Season 3
+(@CGUID+114, 34040, 1, 1, 1669.78, -4200.1, 56.3815, 3.61023, 180),     -- Lady Palanseer <Armor Quartermaster>, TBC Season 4
+(@CGUID+115, 12796, 1, 1, 1674.43, -4212.55, 56.3829, 3.00254, 180),    -- Raider Bork <Mount Quartermaster>, TBC
+(@CGUID+116, @Bork, 1, 1, 1674.43, -4212.55, 56.3829, 3.00254, 180),    -- Raider Bork <Mount Quartermaster>, Vanilla
+(@CGUID+117, 19850, 1, 0, 1651.85, -4209.56, 55.5382, 5.61086, 180),    -- Councilor Arial D'Anastasis, TBC
+(@CGUID+118, 12788, 1, 1, 1650.95, -4212.82, 55.439, 0.182965, 300),    -- Legionnaire Teena, TBC
 
-(125694, 12796, 1, 1674.43, -4212.55, 56.3829, 3.00254, 180),       -- Raider Bork <Mount Quartermaster>, TBC
-(612796, @Bork, 1, 1674.43, -4212.55, 56.3829, 3.00254, 180),       -- Raider Bork <Mount Quartermaster>, Vanilla
-(623447, 23447, 1, 1644.52, -4195.26, 56.3826, 5.43078, 180),       -- Sergeant Kien <Armor Quartermaster>, TBC
+(@CGUID+1, 20278, 1, 0, 1654.25, -4189.82, 56.3825, 4.71787, 180),      -- Vixton Pinchwhistle <Arena Vendor>, TBC, Season 1
+(@CGUID+2, @Vixton, 1, 0, 1654.25, -4189.82, 56.3825, 4.71787, 180),    -- Vixton Pinchwhistle <Arena Vendor>, TBC, Season 2
+(@CGUID+3, 23396, 1, 0, 1660.37, -4190.74, 56.3817, 4.54116, 180),      -- Krixel Pinchwhistle <Arena Vendor>, TBC, Season 2
+(@CGUID+4, 24392, 1, 0, 1654.25, -4189.82, 56.3825, 4.71787, 180),      -- Leeni "Smiley" Smalls <Arena Vendor>, TBC, Season 3
+(@CGUID+5, @Krixel, 1, 0, 1660.37, -4190.74, 56.3817, 4.54116, 180),    -- Krixel Pinchwhistle <Arena Vendor>, TBC, Season 3
+(@CGUID+6, @Leeni, 1, 0, 1654.25, -4189.82, 56.3825, 4.71787, 180),     -- Leeni "Smiley" Smalls <Arena Vendor>, TBC, Season 4
+(@CGUID+7, 26352, 1, 1, 1660.37, -4190.74, 56.3817, 4.54116, 180),      -- Big Zokk Torquewrench <Arena Vendor>, TBC, Season 4
 
-(@CGUID+1, 20278, 1, 1654.25, -4189.82, 56.3825, 4.71787, 180),     -- Vixton Pinchwhistle <Arena Vendor>, TBC, Season 1
-(@CGUID+2, @Vixton, 1, 1654.25, -4189.82, 56.3825, 4.71787, 180),   -- Vixton Pinchwhistle <Arena Vendor>, TBC, Season 2
-(@CGUID+3, 23396, 1, 1660.37, -4190.74, 56.3817, 4.54116, 180),     -- Krixel Pinchwhistle <Arena Vendor>, TBC, Season 2
-(@CGUID+4, 24392, 1, 1654.25, -4189.82, 56.3825, 4.71787, 180),     -- Leeni "Smiley" Smalls <Arena Vendor>, TBC, Season 3
-(@CGUID+5, @Krixel, 1, 1660.37, -4190.74, 56.3817, 4.54116, 180),   -- Krixel Pinchwhistle <Arena Vendor>, TBC, Season 3
-(@CGUID+6, @Leeni, 1, 1654.25, -4189.82, 56.3825, 4.71787, 180),    -- Leeni "Smiley" Smalls <Arena Vendor>, TBC, Season 4
-(@CGUID+7, 26352, 1, 1660.37, -4190.74, 56.3817, 4.54116, 180),     -- Big Zokk Torquewrench <Arena Vendor>, TBC, Season 4
+(@CGUID+11, 32383, 1, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),     -- Sergeant Thunderhorn, WotLK Season 5
+(@CGUID+12, 34036, 1, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),     -- Sergeant Thunderhorn, WotLK Season 6
+(@CGUID+13, 34037, 1, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),     -- Sergeant Thunderhorn, WotLK Season 7
+(@CGUID+14, 34038, 1, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),     -- Sergeant Thunderhorn, WotLK Season 8
+(@CGUID+15, 32385, 1, 0, 1673.07, -4201.89, 56.3826, 3.62927, 180),     -- Doris Volanthius, WotLK Season 5
+(@CGUID+16, 34058, 1, 0, 1673.07, -4201.89, 56.3826, 3.62927, 180),     -- Doris Volanthius, WotLK Season 6
+(@CGUID+17, 34059, 1, 0, 1673.07, -4201.89, 56.3826, 3.62927, 180),     -- Doris Volanthius, WotLK Season 7
+(@CGUID+18, 34060, 1, 0, 1673.07, -4201.89, 56.3826, 3.62927, 180);     -- Doris Volanthius, WotLK Season 8
 
-(@CGUID+11, 32383, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),    -- Sergeant Thunderhorn, WotLK Season 5
-(@CGUID+12, 34036, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),    -- Sergeant Thunderhorn, WotLK Season 6
-(@CGUID+13, 34037, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),    -- Sergeant Thunderhorn, WotLK Season 7
-(@CGUID+14, 34038, 1, 1669.09, -4196.78, 56.3827, 4.10416, 180),    -- Sergeant Thunderhorn, WotLK Season 8
-(@CGUID+15, 32385, 1, 1673.07, -4201.89, 56.3826, 3.62927, 180),    -- Doris Volanthius, WotLK Season 5
-(@CGUID+16, 34058, 1, 1673.07, -4201.89, 56.3826, 3.62927, 180),    -- Doris Volanthius, WotLK Season 6
-(@CGUID+17, 34059, 1, 1673.07, -4201.89, 56.3826, 3.62927, 180),    -- Doris Volanthius, WotLK Season 7
-(@CGUID+18, 34060, 1, 1673.07, -4201.89, 56.3826, 3.62927, 180);    -- Doris Volanthius, WotLK Season 8
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_pvp'  WHERE `guid` IN (@CGUID+109); -- only visible during tbc
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_pre_tbc'  WHERE `guid` IN (@CGUID+101, @CGUID+102, @CGUID+104, @CGUID+106, @CGUID+108,@CGUID+110,  @CGUID+116); -- only visible during vanilla
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc'      WHERE `guid` IN (@CGUID+103, @CGUID+105, @CGUID+107, @CGUID+115, @CGUID+117, @CGUID+118); -- visible during tbc & wotlk
 
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_pvp'  WHERE `guid` IN (626396); -- only visible during tbc
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_pre_tbc'  WHERE `guid` IN (612792, 612799, 614581); -- only visible during vanilla
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc'      WHERE `guid` IN (125685, 125688, 125690, 125694, 125695, 612788, 623447, 626397); -- visible during tbc & wotlk
-
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S1'   WHERE `guid` IN (@CGUID+1);
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S2'   WHERE `guid` IN (@CGUID+2, @CGUID+3);
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S3'   WHERE `guid` IN (@CGUID+4, @CGUID+5);
-UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S4'   WHERE `guid` IN (@CGUID+6, @CGUID+7);
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S1'   WHERE `guid` IN (@CGUID+1, @CGUID+111);
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S2'   WHERE `guid` IN (@CGUID+2, @CGUID+3, @CGUID+112);
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S3'   WHERE `guid` IN (@CGUID+4, @CGUID+5, @CGUID+113);
+UPDATE `creature` SET `ScriptName` = 'npc_ipp_tbc_S4'   WHERE `guid` IN (@CGUID+6, @CGUID+7, @CGUID+114);
 
 UPDATE `creature` SET `ScriptName` = 'npc_ipp_wotlk_S5' WHERE `guid` IN (@CGUID+11, @CGUID+15);
 UPDATE `creature` SET `ScriptName` = 'npc_ipp_wotlk_S6' WHERE `guid` IN (@CGUID+12, @CGUID+16);
@@ -375,7 +337,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 
 
 -- WotLK pvp vendors
-DELETE FROM `creature` WHERE `id1` IN 
+DELETE FROM `creature` WHERE `id` IN 
 (34043,  -- Lady Palanseer <Armor Quartermaster>
  34063); -- Blood Guard Zar'shi <Northrend Armor Quartermaster>
 

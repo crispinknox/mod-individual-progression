@@ -70,12 +70,12 @@ INSERT INTO `smart_scripts` (`entryorguid`, `source_type`, `id`, `link`, `event_
 (5786, 0, 1, 0, 2, 0, 100, 1, 0, 15, 0, 0, 0, 0, 25, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,                      'Snagglespear - Between 0-15% Health - Flee For Assist (No Repeat)'),
 (5807, 0, 0, 0, 9, 0, 100, 0, 0, 0, 8000, 12000, 0, 5, 11, 12166, 32, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0,           'The Rake - Within 0-5 Range - Cast Muscle Tear');
 
-
 -- Mazzranache, waypoints
-UPDATE `creature` SET `spawntimesecs` = 9000, `MovementType` = 2, `currentwaypoint` = 1 WHERE `id1` = 3068;
+UPDATE `creature` SET `spawntimesecs` = 9000, `MovementType` = 2, `currentwaypoint` = 1 WHERE `id` = 3068;
 
-DELETE FROM `creature_addon` WHERE `guid` = 26908;
+DELETE FROM `creature_addon` WHERE `guid` IN (26213, 26908);
 INSERT INTO `creature_addon` (`guid`, `path_id`, `mount`, `bytes1`, `bytes2`, `emote`, `visibilityDistanceType`, `auras`) VALUES 
+(26213, 0, 0, 0, 0, 0, 0, NULL),
 (26908, 269080, 0, 0, 0, 0, 0, NULL);
 
 DELETE FROM `waypoint_data` WHERE `id` = 269080;
@@ -145,17 +145,16 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 (269080, 63, -1729.44, -528.724, -13.8673, NULL, 0, 0, 0, 100, 0),
 (269080, 64, -1731.65, -542.165, -13.1692, NULL, 0, 0, 0, 100, 0);
 
-
 -- Galak Centaur, waypoints
-DELETE FROM `creature` WHERE `id1` IN (2967, 2968);
-INSERT INTO `creature` (`guid`, `id1`, `id2`, `id3`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
+DELETE FROM `creature` WHERE `id` IN (2967, 2968);
+INSERT INTO `creature` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `equipment_id`, `position_x`, `position_y`, `position_z`, `orientation`, 
 `spawntimesecs`, `wander_distance`, `currentwaypoint`, `curhealth`, `curmana`, `MovementType`, `npcflag`, `unit_flags`, `dynamicflags`, `ScriptName`, `VerifiedBuild`, `CreateObject`, `Comment`) VALUES
-(25998, 2967, 0, 0, 1, 0, 0, 1, 1, 1, -2261.41, -1456.51, 46.2608, 5.28361, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
-(25999, 2967, 0, 0, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 5.23882, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
-(26000, 2967, 0, 0, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 4.17968, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
-(26001, 2968, 0, 0, 1, 0, 0, 1, 1, 1, -2261.41, -1456.51, 46.2608, 5.28312, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL),
-(26002, 2968, 0, 0, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 5.23876, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL),
-(26019, 2968, 0, 0, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 4.17969, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL);
+(25998, 2967, 1, 0, 0, 1, 1, 1, -2261.41, -1456.51, 46.2608, 5.28361, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
+(25999, 2967, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 5.23882, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
+(26000, 2967, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 4.17968, 375, 0, 1, 176, 0, 2, 0, 0, 0, '', 0, 0, NULL),
+(26001, 2968, 1, 0, 0, 1, 1, 1, -2261.41, -1456.51, 46.2608, 5.28312, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL),
+(26002, 2968, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 5.23876, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL),
+(26019, 2968, 1, 0, 0, 1, 1, 1, -2227.05, -1386.47, 43.9742, 4.17969, 375, 0, 0, 198, 0, 0, 0, 0, 0, '', 0, 0, NULL);
 
 DELETE FROM `creature_formations` WHERE `leaderGUID` IN (25998, 25999, 26000);
 INSERT INTO `creature_formations` (`leaderGUID`, `memberGUID`, `dist`, `angle`, `groupAI`, `point_1`, `point_2`) VALUES
@@ -261,25 +260,12 @@ INSERT INTO `waypoint_data` (`id`, `point`, `position_x`, `position_y`, `positio
 (260000, 21, -2268.83, -1314.06, 20.2923, NULL, 0, 0, 0, 100, 0),
 (260000, 22, -2245.92, -1344.81, 30.1417, NULL, 0, 0, 0, 100, 0);
 
-
 -- update npc names
 UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker'  WHERE `entry` = 3069;  -- Chaw Stronghide <Journeyman Leatherworker>
 UPDATE `creature_template` SET `subname` = 'Armorer and Shieldcrafter' WHERE `entry` = 3075;  -- Bronk Steelrage
 UPDATE `creature_template` SET `subname` = 'Fisherman'                 WHERE `entry` = 5938;  -- Uthan Stillwater <Fisherman>
 UPDATE `creature_template` SET `subname` = 'Skinner'                   WHERE `entry` = 6290;  -- Yonn Deepcut <Skinner>
 UPDATE `creature_template` SET `subname` = 'Journeyman Engineer'       WHERE `entry` = 10993; -- Twizwick Sprocketgrind <Journeyman Engineer>
-
-SET @TRAINER_ID   := 600;
-
-DELETE FROM `creature_default_trainer` WHERE `CreatureId` IN (3069, 3690, 5938, 5939, 6290, 10993);
-INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES 
-(3069,  @TRAINER_ID+31), -- Chaw Stronghide <Journeyman Leatherworker>
-(3690,  @TRAINER_ID+48), -- Kar Stormsinger <Riding Trainer>
-(5938,  @TRAINER_ID+47), -- Uthan Stillwater <Fisherman>
-(5939,  @TRAINER_ID+45), -- Vira Younghoof <First Aid Trainer>
-(6290,  @TRAINER_ID+43), -- Yonn Deepcut <Skinner>
-(10993, @TRAINER_ID+26); -- Twizwick Sprocketgrind <Journeyman Engineer>
-
 
 /* Quests */
 
@@ -303,7 +289,6 @@ INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `CompletionText`) VA
 DELETE FROM `quest_request_items` WHERE `ID` = 760;
 INSERT INTO `quest_request_items` (`ID`, `EmoteOnComplete`, `CompletionText`) VALUES 
 (760, 1, 'The last water well remains fetid and poisonous, $N. You must not delay!');
-
 
 UPDATE `quest_template` SET `Flags` = 0 WHERE `ID` = 1518; -- Call of Earth (Shaman)
 

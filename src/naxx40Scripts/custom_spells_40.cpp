@@ -1,9 +1,7 @@
 #include "ScriptMgr.h"
-#include "ScriptedCreature.h"
 #include "SpellAuraDefines.h"
 #include "SpellAuraEffects.h"
 #include "SpellScript.h"
-#include "naxxramas.h"
 #include "Player.h"
 
 // 28785 - Locust Swarm
@@ -250,7 +248,6 @@ class spell_sapphiron_chill_40 : public AuraScript
     }
 };
 
-
 // 28522 - Icebolt
 class spell_sapphiron_icebolt_40 : public SpellScript
 {
@@ -357,7 +354,7 @@ class spell_razuvious_disrupting_shout_40 : public SpellScript
 {
     PrepareSpellScript(spell_razuvious_disrupting_shout_40);
 
-    void CalculateDamage(SpellEffIndex effIndex)
+    void CalculateDamage(SpellEffIndex /*effIndex*/)
     {
         Unit* caster = GetCaster();
         if (!caster || (caster->GetMap()->GetDifficulty() != RAID_DIFFICULTY_10MAN_HEROIC))
@@ -455,7 +452,7 @@ class spell_loatheb_corrupted_mind_40 : public SpellScript
 {
     PrepareSpellScript(spell_loatheb_corrupted_mind_40);
 
-    void HandleEffect(SpellEffIndex effIndex)
+    void HandleEffect(SpellEffIndex /*effIndex*/)
     {
         if (Unit* caster = GetCaster())
         {
